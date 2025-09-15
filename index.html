@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light only" />
 
 <style>
-/* ========== TOKENS ========= */
+/* ====== TOKENS ====== */
 :root{
   --blue:#1E3A8A;
   --blue-2:#0E4DA4;
@@ -28,7 +28,7 @@
   --fs-small: clamp(12px, 2.8vw, 14px);
 }
 
-/* ========== BASE ========= */
+/* ====== BASE ====== */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -43,29 +43,61 @@ img{max-width:100%;display:block}
 .section{padding:56px 0; scroll-margin-top:84px}
 .section h2{font-size:var(--fs-h2);margin:0 0 12px;color:var(--graphite)}
 .lead{color:var(--muted)}
-
-/* Melhor foco acessível */
 :focus-visible{outline:3px solid #93C5FD; outline-offset:2px; border-radius:10px}
 
-/* ========== HEADER / NAV ========= */
+/* ====== HEADER ====== */
 header{
-  position:sticky; top:0; z-index:60; background:rgba(255,255,255,.92);
-  backdrop-filter:saturate(180%) blur(8px); border-bottom:1px solid #e5e7eb;
+  position:sticky; top:0; z-index:1000;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid #e5e7eb;
 }
 .nav{
-  display:flex; align-items:center; justify-content:space-between; gap:10px;
-  padding:10px 0;
+  display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0;
 }
-.brand{display:inline-flex;align-items:center;gap:10px;font-weight:900;color:var(--graphite);white-space:nowrap}
+.brand{display:inline-flex;align-items:center;gap:10px;
+  font-weight:900;color:var(--graphite);white-space:nowrap}
 .brand svg{height:36px; width:auto}
-.nav-links{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
-.nav-links a{font-weight:700;color:var(--graphite);padding:10px 10px;border-radius:10px;line-height:1}
-.nav-toggle{display:none;border:0;background:transparent;padding:10px;border-radius:10px}
 
-/* botão do menu (C2A do header sempre branco) */
+/* Menu horizontal (desktop) */
+.nav-links{display:flex;flex-wrap:wrap;gap:12px}
+.nav-links a{font-weight:700;color:var(--graphite);
+  padding:8px 10px;border-radius:10px;line-height:1}
 .nav-links .btn{background:var(--blue)!important;color:#fff!important}
 
-/* ========== BOTÕES ========= */
+/* Botão hamburger (mobile) */
+.nav-toggle{
+  display:none; border:0; background:transparent; padding:10px; border-radius:10px;
+}
+
+/* ====== DRAWER (mobile) ====== */
+.drawer-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.28);
+  opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:999;
+}
+.drawer-overlay.show{opacity:1; pointer-events:auto}
+.drawer{
+  position:fixed; top:0; left:0; height:100dvh; width:min(84vw, 360px);
+  background:#fff; border-right:1px solid #e5e7eb; box-shadow: 10px 0 28px rgba(2,6,23,.08);
+  transform:translateX(-105%); transition:transform .28s ease; z-index:1000;
+  display:flex; flex-direction:column; padding:max(12px, env(safe-area-inset-top)) 16px 16px;
+  -webkit-overflow-scrolling:touch; overflow:auto;
+}
+.drawer.open{transform:translateX(0)}
+.drawer .drawer-header{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;
+}
+.drawer .drawer-title{font-weight:900; color:var(--graphite)}
+.drawer .drawer-close{
+  border:0; background:transparent; padding:8px; border-radius:10px; color:var(--graphite)
+}
+.drawer nav{display:grid; gap:6px; margin-top:8px}
+.drawer nav a{
+  padding:12px; border-radius:12px; font-weight:700; color:var(--graphite)
+}
+.drawer nav a.btn{background:var(--blue); color:#fff; text-align:center}
+
+/* ====== BOTÕES ====== */
 .btn{
   display:inline-block; padding:14px 18px; border-radius:12px; background:var(--blue);
   color:#fff; font-weight:800; letter-spacing:.2px; border:0; box-shadow:var(--shadow);
@@ -75,13 +107,13 @@ header{
 .btn:active{transform:translateY(1px)}
 .btn-outline{background:transparent;color:var(--blue);border:2px solid var(--blue)}
 
-/* ========== GRIDS / CARDS ========= */
+/* ====== GRIDS / CARDS ====== */
 .card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);box-shadow:var(--shadow)}
 .card .content{padding:18px}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 
-/* ========== HERO ========= */
+/* ====== HERO ====== */
 .hero{
   display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center; padding:38px 0 54px
 }
@@ -94,7 +126,7 @@ header{
 .kpi{display:flex;gap:12px;align-items:center}
 .kpi .num{font-size:clamp(20px,5vw,32px);font-weight:900;color:var(--blue)}
 
-/* ========== FORM ========= */
+/* ====== FORM ====== */
 .input, select, textarea{
   width:100%; padding:14px 14px; border-radius:12px; border:1px solid #e5e7eb; font:inherit;
   min-height:48px;
@@ -105,27 +137,23 @@ label{font-weight:700;margin-bottom:6px;display:block}
 .form-actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
 .small{font-size:var(--fs-small);color:var(--muted)}
 
-/* ========== CTA & FOOTER ========= */
+/* ====== CTA & FOOTER ====== */
 .cta{background:linear-gradient(135deg,var(--blue),#0b3a6b);color:#fff}
 .cta .content{padding:24px}
 .cta h2,.cta p,.cta a{color:#fff!important}
 
 footer{background:var(--light);padding:22px 0;border-top:1px solid #e5e7eb;font-size:var(--fs-small);color:var(--muted)}
 
-/* ========== WHATSAPP FAB ========= */
+/* ====== WHATSAPP FAB ====== */
 .wapp{
   position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom));
   background:#25D366; color:#fff; border-radius:999px; padding:14px 18px;
-  font-weight:900; box-shadow:0 10px 24px rgba(0,0,0,.18); z-index:70
+  font-weight:900; box-shadow:0 10px 24px rgba(0,0,0,.18); z-index:1100
 }
 .wapp:hover{filter:brightness(1.05);text-decoration:none}
 
-/* Hover states não devem quebrar click em mobile */
-@media (hover:none){
-  a:hover{text-decoration:none}
-}
-
-/* ========== MOBILE FIRST AJUSTES ========= */
+/* ====== MOBILE ====== */
+@media (hover:none){ a:hover{text-decoration:none} }
 @media (max-width: 900px){
   .container{padding:0 16px}
   .section{padding:36px 0}
@@ -134,26 +162,17 @@ footer{background:var(--light);padding:22px 0;border-top:1px solid #e5e7eb;font-
   .form-row{grid-template-columns:1fr}
   .btn,.btn-outline{width:100%}
 
-  /* Nav vira “sheet” deslizante */
+  /* Mostrar hamburger; esconder nav horizontal */
   .nav-toggle{display:inline-flex; align-items:center; justify-content:center}
-  .nav-links{
-    position:fixed; inset:auto 0 0 0; top:56px;
-    background:#fff; border-top:1px solid #e5e7eb;
-    display:grid; gap:8px; padding:14px 16px 18px;
-    transform:translateY(105%); transition:transform .28s ease; z-index:65
-  }
-  .nav-links.open{transform:translateY(0)}
-  .nav-links a{padding:14px;border-radius:12px; font-size:clamp(15px, 4vw, 17px)}
-  .nav-overlay{
-    content:""; position:fixed; inset:0; background:rgba(0,0,0,.18);
-    opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:64;
-  }
-  .nav-overlay.show{opacity:1; pointer-events:auto}
+  .nav-links{display:none}
 }
 
-/* Microajustes de leitura */
+/* Microajustes */
 ul,ol{padding-left:22px}
 hr{border:0;border-top:1px solid #e5e7eb;margin:16px 0}
+
+/* Travar scroll quando drawer aberto */
+body.drawer-open{height:100dvh; overflow:hidden; touch-action:none;}
 </style>
 </head>
 
@@ -170,19 +189,40 @@ hr{border:0;border-top:1px solid #e5e7eb;margin:16px 0}
       PROJIXIS
     </a>
 
-    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="primary-nav">
-      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="#111827" stroke-width="2" stroke-linecap="round"/></svg>
+    <!-- Botão hamburger (aparece só no mobile) -->
+    <button class="nav-toggle" id="drawerOpenBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
+      </svg>
     </button>
 
-    <nav id="primary-nav" class="nav-links" role="navigation">
+    <!-- Menu horizontal (desktop) -->
+    <nav class="nav-links" role="navigation" aria-label="Navegação principal">
       <a href="#servicos">Serviços</a>
       <a href="#processo">Como funciona</a>
       <a href="#sobre">Sobre</a>
       <a href="#contato" class="btn">Pedir orçamento</a>
     </nav>
   </div>
-  <!-- Overlay para fechar o menu tocando fora (mobile) -->
-  <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+  <!-- Drawer lateral (mobile) -->
+  <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+  <aside class="drawer" id="mobile-drawer" aria-hidden="true" aria-label="Menu lateral">
+    <div class="drawer-header">
+      <div class="drawer-title">Menu</div>
+      <button class="drawer-close" id="drawerCloseBtn" aria-label="Fechar menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6l-12 12" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav role="navigation">
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Como funciona</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato" class="btn">Pedir orçamento</a>
+    </nav>
+  </aside>
 </header>
 
 <main id="top" class="container" role="main">
@@ -330,13 +370,21 @@ hr{border:0;border-top:1px solid #e5e7eb;margin:16px 0}
     <div class="content">
       <h2>Precisa regularizar sua empresa?</h2>
       <p>Vamos colocar sua edificação em conformidade com o Corpo de Bombeiros com rapidez e transparência.</p>
-      <a class="btn" href="#contato" aria-label="Falar agora no WhatsApp">Falar agora</a>
+      <a class="btn" href="#contato" aria-label="Falar agora">Falar agora</a>
     </div>
   </section>
 </main>
 
-<!-- FAB WhatsApp -->
-<a class="wapp" id="wappFloat" href="#" aria-label="Falar no WhatsApp">WhatsApp</a>
+<!-- FAB WhatsApp (link direto) -->
+<a
+  class="wapp"
+  id="wappFloat"
+  href="https://wa.me/5562982282999?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20de%20PPCI/PSCIP."
+  target="_blank" rel="noopener"
+  aria-label="Falar no WhatsApp"
+>
+  WhatsApp
+</a>
 
 <footer>
   <div class="container">© <span id="year"></span> PROJIXIS • Engenharia de Segurança Contra Incêndio — Goiânia/GO</div>
@@ -348,30 +396,31 @@ const YEAR=new Date().getFullYear(); document.getElementById('year').textContent
 const WHATSAPP_NUMBER='5562982282999';
 const encodeQuery = (q)=> encodeURIComponent(q);
 
-/* ===== NAV mobile ===== */
-const toggleBtn = document.querySelector('.nav-toggle');
-const nav = document.querySelector('.nav-links');
-const overlay = document.getElementById('navOverlay');
+/* ===== Drawer ===== */
+const drawer = document.getElementById('mobile-drawer');
+const overlay = document.getElementById('drawerOverlay');
+const openBtn = document.getElementById('drawerOpenBtn');
+const closeBtn = document.getElementById('drawerCloseBtn');
 
-function openNav(){
-  nav.classList.add('open');
+function openDrawer(){
+  drawer.classList.add('open');
   overlay.classList.add('show');
-  toggleBtn.setAttribute('aria-expanded','true');
+  drawer.setAttribute('aria-hidden','false');
+  openBtn.setAttribute('aria-expanded','true');
+  document.body.classList.add('drawer-open');
 }
-function closeNav(){
-  nav.classList.remove('open');
+function closeDrawer(){
+  drawer.classList.remove('open');
   overlay.classList.remove('show');
-  toggleBtn.setAttribute('aria-expanded','false');
+  drawer.setAttribute('aria-hidden','true');
+  openBtn.setAttribute('aria-expanded','false');
+  document.body.classList.remove('drawer-open');
 }
-toggleBtn.addEventListener('click', ()=>{
-  const isOpen = nav.classList.contains('open');
-  isOpen ? closeNav() : openNav();
-});
-overlay.addEventListener('click', closeNav);
-/* Fecha ao clicar em um link do menu (mobile) */
-nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeNav));
-/* Fecha com ESC */
-window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeNav(); });
+openBtn.addEventListener('click', ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+closeBtn.addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+drawer.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeDrawer));
 
 /* ===== FORM ===== */
 document.getElementById('leadForm')?.addEventListener('submit',e=>{
@@ -382,19 +431,12 @@ document.getElementById('leadForm')?.addEventListener('submit',e=>{
   const tipo=document.getElementById('tipo').value;
   const det=document.getElementById('detalhes').value.trim();
   const msg=`Olá, sou ${nome}. Quero orçamento de PPCI/PSCIP em ${cidade || 'sua cidade'}. Tipo: ${tipo}. Contato: ${zap}. Detalhes: ${det || '—'}`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeQuery(msg)}`,'_blank','noopener');
+  window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeQuery(msg)}`;
 });
 
-/* ===== FAB WhatsApp ===== */
-document.getElementById('wappFloat').addEventListener('click',e=>{
-  e.preventDefault();
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeQuery('Olá! Gostaria de um orçamento de PPCI/PSCIP.')}`,'_blank','noopener');
-});
-
-/* ===== Input melhorias simples no mobile ===== */
+/* ===== Máscara simples para WhatsApp ===== */
 const zapInput = document.getElementById('whatsapp');
 zapInput?.addEventListener('input', (e)=>{
-  // máscara rápida e permissiva: mantém números e formata (xx) x xxxx-xxxx
   const n = e.target.value.replace(/\D/g,'').slice(0,11);
   let f = n;
   if(n.length>2) f=`(${n.slice(0,2)}) ${n.slice(2)}`;
