@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>PROJIXIS • Projetos de Segurança Contra Incêndio (PPCI/PSCIP) - Grande Goiânia</title>
 <meta name="description" content="Projetos de combate e prevenção a incêndio (PPCI/PSCIP), ART CREA-GO, laudos e regularização junto ao CBMGO. Atuação em Goiânia e região metropolitana." />
-<meta name="color-scheme" content="light only" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
 
-<!-- Google tag (gtag.js) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZQQY1MLN3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -19,170 +24,279 @@
   
 <style>
 /* ====== TOKENS ====== */
-:root{
-  --blue:#1E3A8A;
-  --blue-2:#0E4DA4;
-  --graphite:#111827;
-  --text:#374151;
-  --light:#F3F4F6;
-  --muted:#6B7280;
-  --white:#FFFFFF;
-  --radius:16px;
-  --shadow:0 10px 28px rgba(2,6,23,.06);
-  --maxw:1100px;
+:root {
+  /* Cores (Light Theme) */
+  --blue: #1E40AF;
+  --blue-2: #1D4ED8;
+  --graphite: #111827;
+  --text: #374151;
+  --light: #F9FAFB;
+  --muted: #6B7280;
+  --white: #FFFFFF;
+  --border-color: #E5E7EB;
+  --bg-color: var(--white);
+  --card-bg: var(--white);
+  --header-bg: rgba(255, 255, 255, .85);
 
-  --fs-h1: clamp(26px, 6vw, 42px);
-  --fs-h2: clamp(20px, 4.5vw, 30px);
-  --fs-h3: clamp(17px, 3.8vw, 22px);
-  --fs-body: clamp(15px, 3.2vw, 17px);
-  --fs-small: clamp(12px, 2.8vw, 14px);
+  /* Geral */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --maxw: 1140px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Tipografia */
+  --font-main: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+  --fs-h1: clamp(28px, 6vw, 44px);
+  --fs-h2: clamp(22px, 4.5vw, 32px);
+  --fs-h3: clamp(18px, 3.8vw, 22px);
+  --fs-body: clamp(16px, 3.2vw, 17px);
+  --fs-small: clamp(13px, 2.8vw, 14px);
+}
+
+:root[data-theme="dark"] {
+  --blue: #3B82F6;
+  --blue-2: #60A5FA;
+  --graphite: #F9FAFB;
+  --text: #D1D5DB;
+  --light: #1F2937;
+  --muted: #9CA3AF;
+  --white: #111827;
+  --border-color: #374151;
+  --bg-color: #111827;
+  --card-bg: #1F2937;
+  --header-bg: rgba(17, 24, 39, .85);
+}
+
+/* ====== ANIMAÇÕES ====== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ====== BASE ====== */
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;
-  color:var(--text); background:#fff; line-height:1.6; font-size:var(--fs-body);
-  -webkit-text-size-adjust:100%;
+* { box-sizing: border-box }
+html { scroll-behavior: smooth }
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  color: var(--text);
+  background: var(--bg-color);
+  line-height: 1.65;
+  font-size: var(--fs-body);
+  -webkit-text-size-adjust: 100%;
+  transition: background-color var(--transition), color var(--transition);
 }
-a{color:var(--blue-2);text-decoration:none}
-a:hover{text-decoration:underline}
-img{max-width:100%;display:block}
-.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-.section{padding:56px 0; scroll-margin-top:84px}
-.section h2{font-size:var(--fs-h2);margin:0 0 12px;color:var(--graphite)}
-.lead{color:var(--muted)}
-:focus-visible{outline:3px solid #93C5FD; outline-offset:2px; border-radius:10px}
+a { color: var(--blue-2); text-decoration: none; transition: var(--transition); }
+a:hover { text-decoration: none; color: var(--blue); }
+img { max-width: 100%; display: block; border-radius: var(--radius-sm); }
+h1,h2,h3 { line-height: 1.3; color: var(--graphite); font-weight: 700; }
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+.section { padding: 64px 0; scroll-margin-top: 90px; }
+.section:nth-of-type(even) { background-color: var(--light); }
+.section h2 { font-size: var(--fs-h2); margin: 0 0 16px; text-align: center; }
+.lead { color: var(--muted); max-width: 650px; margin: 0 auto 32px; text-align: center; }
+:focus-visible { outline: 3px solid #93C5FD; outline-offset: 3px; border-radius: 10px; }
 
 /* ====== HEADER ====== */
-header{
-  position:sticky; top:0; z-index:1000;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:saturate(180%) blur(8px);
-  border-bottom:1px solid #e5e7eb;
+header {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--header-bg);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition), border-color var(--transition);
 }
-.nav{
-  display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0;
+.nav {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0;
 }
-.brand{display:inline-flex;align-items:center;gap:10px;
-  font-weight:900;color:var(--graphite);white-space:nowrap}
-.brand svg{height:36px; width:auto}
+.brand { display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 800; color: var(--graphite); white-space: nowrap; font-size: 1.2rem; }
+.brand svg { height: 38px; width: auto; }
+.nav-actions { display: flex; align-items: center; gap: 8px; }
 
 /* Menu horizontal (desktop) */
-.nav-links{display:flex;flex-wrap:wrap;gap:12px}
-.nav-links a{font-weight:700;color:var(--graphite);
-  padding:8px 10px;border-radius:10px;line-height:1}
-.nav-links .btn{background:var(--blue)!important;color:#fff!important}
+.nav-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.nav-links a { font-weight: 600; color: var(--graphite);
+  padding: 8px 12px; border-radius: 10px; line-height: 1; }
+.nav-links a:hover { background-color: var(--light); color: var(--blue); }
+.nav-links .btn { background: var(--blue) !important; color: #fff !important; }
+.nav-links .btn:hover { background: var(--blue-2) !important; }
 
-/* Botão hamburger (mobile) */
-.nav-toggle{
-  display:none; border:0; background:transparent; padding:10px; border-radius:10px;
+/* Botão hamburger e tema (mobile) */
+.nav-toggle, .theme-toggle {
+  display: none; border: 0; background: transparent; padding: 10px; border-radius: 10px;
+  color: var(--graphite); cursor: pointer;
 }
+.theme-toggle .moon { display: none; }
+[data-theme="dark"] .theme-toggle .sun { display: none; }
+[data-theme="dark"] .theme-toggle .moon { display: block; }
 
 /* ====== DRAWER (mobile) ====== */
-.drawer-overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,.28);
-  opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:999;
+.drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.4);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 999;
 }
-.drawer-overlay.show{opacity:1; pointer-events:auto}
-.drawer{
-  position:fixed; top:0; left:0; height:100dvh; width:min(84vw, 360px);
-  background:#fff; border-right:1px solid #e5e7eb; box-shadow: 10px 0 28px rgba(2,6,23,.08);
-  transform:translateX(-105%); transition:transform .28s ease; z-index:1000;
-  display:flex; flex-direction:column; padding:max(12px, env(safe-area-inset-top)) 16px 16px;
-  -webkit-overflow-scrolling:touch; overflow:auto;
+.drawer-overlay.show { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; left: 0; height: 100dvh; width: min(84vw, 360px);
+  background: var(--bg-color); border-right: 1px solid var(--border-color); box-shadow: var(--shadow-lg);
+  transform: translateX(-105%); transition: transform .28s ease, background-color var(--transition); z-index: 1000;
+  display: flex; flex-direction: column; padding: max(12px, env(safe-area-inset-top)) 16px 16px;
+  -webkit-overflow-scrolling: touch; overflow: auto;
 }
-.drawer.open{transform:translateX(0)}
-.drawer .drawer-header{
-  display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;
+.drawer.open { transform: translateX(0); }
+.drawer .drawer-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px;
 }
-.drawer .drawer-title{font-weight:900; color:var(--graphite)}
-.drawer .drawer-close{
-  border:0; background:transparent; padding:8px; border-radius:10px; color:var(--graphite)
+.drawer .drawer-title { font-weight: 900; color: var(--graphite); }
+.drawer .drawer-close {
+  border: 0; background: transparent; padding: 8px; border-radius: 10px; color: var(--graphite); cursor: pointer;
 }
-.drawer nav{display:grid; gap:6px; margin-top:8px}
-.drawer nav a{
-  padding:12px; border-radius:12px; font-weight:700; color:var(--graphite)
+.drawer nav { display: grid; gap: 6px; margin-top: 8px; }
+.drawer nav a {
+  padding: 12px; border-radius: 12px; font-weight: 700; color: var(--graphite);
 }
-.drawer nav a.btn{background:var(--blue); color:#fff; text-align:center}
+.drawer nav a:hover { background: var(--light); }
+.drawer nav a.btn { background: var(--blue); color: #fff; text-align: center; }
 
 /* ====== BOTÕES ====== */
-.btn{
-  display:inline-block; padding:14px 18px; border-radius:12px; background:var(--blue);
-  color:#fff; font-weight:800; letter-spacing:.2px; border:0; box-shadow:var(--shadow);
-  line-height:1; cursor:pointer; text-align:center
+.btn {
+  display: inline-block; padding: 14px 22px; border-radius: var(--radius-sm); background: var(--blue);
+  color: #fff !important; font-weight: 700; border: 2px solid transparent;
+  box-shadow: var(--shadow-md); line-height: 1; cursor: pointer; text-align: center;
+  transition: var(--transition); letter-spacing: .2px;
 }
-.btn:hover{filter:brightness(1.06); text-decoration:none}
-.btn:active{transform:translateY(1px)}
-.btn-outline{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+.btn:hover { filter: none; text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow-lg); background: var(--blue-2); }
+.btn:active { transform: translateY(0px); }
+.btn-outline { background: transparent; color: var(--blue) !important; border-color: var(--blue); box-shadow: none; }
+.btn-outline:hover { background: var(--blue); color: #fff !important; }
 
 /* ====== GRIDS / CARDS ====== */
-.card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);box-shadow:var(--shadow)}
-.card .content{padding:18px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card {
+  background: var(--card-bg); border: 1px solid var(--border-color);
+  border-radius: var(--radius); box-shadow: var(--shadow-md);
+  transition: var(--transition); overflow: hidden;
+}
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.card .content { padding: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: center; }
 
 /* ====== HERO ====== */
-.hero{
-  display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center; padding:38px 0 54px
+.hero {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding: 48px 0 64px;
 }
-.hero h1{font-size:var(--fs-h1);line-height:1.15;margin:0 0 10px;color:var(--graphite)}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}
-.badge{
-  background:var(--light); color:var(--graphite); padding:6px 10px;
-  border-radius:999px; font-size:var(--fs-small); line-height:1
+.hero h1 { font-size: var(--fs-h1); line-height: 1.2; margin: 0 0 16px; color: var(--graphite); font-weight: 800; }
+.hero .lead { text-align: left; margin: 0 0 24px 0; max-width: 100%; }
+.hero-features { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 12px; }
+.hero-features li { display: flex; align-items: center; gap: 10px; }
+.hero-features svg { color: var(--blue); flex-shrink: 0; }
+.hero-image-wrapper { text-align: center; }
+.hero-image-wrapper img { box-shadow: var(--shadow-lg); }
+
+/* ====== SERVIÇOS ====== */
+#servicos .card { text-align: center; }
+#servicos .card .icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: var(--radius-sm);
+  background-color: var(--blue); color: #fff; margin-bottom: 16px;
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--blue) 15%, transparent);
 }
-.kpi{display:flex;gap:12px;align-items:center}
-.kpi .num{font-size:clamp(20px,5vw,32px);font-weight:900;color:var(--blue)}
+#servicos .card h3 { font-size: var(--fs-h3); margin: 0 0 6px; }
+
+/* ====== PROCESSO ====== */
+.process-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; counter-reset: step-counter; }
+.process-list li {
+  background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+  padding: 18px 20px 18px 60px; position: relative; font-weight: 600;
+}
+.process-list li::before {
+  counter-increment: step-counter;
+  content: counter(step-counter);
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--blue); color: #fff; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-small);
+}
 
 /* ====== FORM ====== */
-.input, select, textarea{
-  width:100%; padding:14px 14px; border-radius:12px; border:1px solid #e5e7eb; font:inherit;
-  min-height:48px;
+.input, select, textarea {
+  width: 100%; padding: 14px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color); font: inherit; color: var(--text);
+  background-color: var(--bg-color); min-height: 50px;
+  transition: var(--transition);
 }
-textarea{min-height:110px}
-label{font-weight:700;margin-bottom:6px;display:block}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-.small{font-size:var(--fs-small);color:var(--muted)}
+.input:focus, select:focus, textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 25%, transparent); }
+textarea { min-height: 110px; }
+label { font-weight: 600; margin-bottom: 6px; display: block; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-actions { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+.small { font-size: var(--fs-small); color: var(--muted); }
 
 /* ====== CTA & FOOTER ====== */
-.cta{background:linear-gradient(135deg,var(--blue),#0b3a6b);color:#fff}
-.cta .content{padding:24px}
-.cta h2,.cta p,.cta a{color:#fff!important}
+.cta {
+  background: linear-gradient(135deg, var(--blue), color-mix(in srgb, var(--blue) 80%, black));
+  color: #fff; border-radius: var(--radius); text-align: center;
+  padding: 48px 24px;
+}
+.cta h2, .cta p, .cta a { color: #fff !important; }
+.cta h2 { font-size: var(--fs-h2); }
+.cta p { max-width: 550px; margin: 0 auto 24px; opacity: .9; }
 
-footer{background:var(--light);padding:22px 0;border-top:1px solid #e5e7eb;font-size:var(--fs-small);color:var(--muted)}
+footer {
+  background: var(--light); padding: 24px 0;
+  border-top: 1px solid var(--border-color);
+  font-size: var(--fs-small); color: var(--muted); text-align: center;
+}
 
 /* ====== WHATSAPP FAB ====== */
-.wapp{
-  position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom));
-  background:#25D366; color:#fff; border-radius:999px; padding:14px 18px;
-  font-weight:900; box-shadow:0 10px 24px rgba(0,0,0,.18); z-index:1100
+.wapp {
+  position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom));
+  background: #25D366; color: #fff; border-radius: 999px; padding: 14px 20px;
+  font-weight: 700; box-shadow: var(--shadow-lg); z-index: 1000;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: var(--transition);
 }
-.wapp:hover{filter:brightness(1.05);text-decoration:none}
+.wapp:hover { filter: none; text-decoration: none; transform: scale(1.05); }
 
 /* ====== MOBILE ====== */
-@media (hover:none){ a:hover{text-decoration:none} }
-@media (max-width: 900px){
-  .container{padding:0 16px}
-  .section{padding:36px 0}
-  .hero{grid-template-columns:1fr; gap:16px; padding:24px 0 36px}
-  .grid-3,.grid-2{grid-template-columns:1fr}
-  .form-row{grid-template-columns:1fr}
-  .btn,.btn-outline{width:100%}
+@media (hover:none) {
+  a:hover { text-decoration: none; }
+  .btn:hover, .card:hover, .wapp:hover { transform: none; box-shadow: var(--shadow-md); }
+}
+@media (max-width: 900px) {
+  .section { padding: 48px 0; }
+  .hero { grid-template-columns: 1fr; gap: 32px; padding: 24px 0 36px; text-align: center; }
+  .hero .lead { margin: 0 auto 24px; }
+  .hero-actions { justify-content: center; }
+  .hero-features { display: inline-grid; text-align: left; }
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; gap: 16px; margin-bottom: 0; }
+  .form-row > div { margin-bottom: 16px; }
+  .btn, .btn-outline { width: 100%; }
+  .form-actions { flex-direction: column; }
 
   /* Mostrar hamburger; esconder nav horizontal */
-  .nav-toggle{display:inline-flex; align-items:center; justify-content:center}
-  .nav-links{display:none}
+  .nav-toggle, .theme-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-links { display: none; }
 }
 
 /* Microajustes */
-ul,ol{padding-left:22px}
-hr{border:0;border-top:1px solid #e5e7eb;margin:16px 0}
-
-/* Travar scroll quando drawer aberto */
-body.drawer-open{height:100dvh; overflow:hidden; touch-action:none;}
+ul,ol { padding-left: 22px; }
+hr { border: 0; border-top: 1px solid var(--border-color); margin: 16px 0; }
+body.drawer-open { height: 100dvh; overflow: hidden; touch-action: none; }
 </style>
 </head>
 
@@ -192,37 +306,41 @@ body.drawer-open{height:100dvh; overflow:hidden; touch-action:none;}
     <a href="#top" class="brand" aria-label="PROJIXIS">
       <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" focusable="false">
         <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#6B7280"/><stop offset="1" stop-color="#9CA3AF"/></linearGradient></defs>
-        <path d="M60 8l42 24v36c0 24-18 38-42 44C36 106 18 92 18 68V32L60 8z" fill="#1E3A8A"/>
+        <path d="M60 8l42 24v36c0 24-18 38-42 44C36 106 18 92 18 68V32L60 8z" fill="#1E40AF"/>
         <path d="M60 20l30 17v31c0 18-13 29-30 33c-17-4-30-15-30-33V37L60 20z" fill="#fff"/>
         <path d="M60 36l18 18v20L60 60l-18 14V54z" fill="url(#g)"/>
       </svg>
       PROJIXIS
     </a>
 
-    <!-- Botão hamburger (aparece só no mobile) -->
-    <button class="nav-toggle" id="drawerOpenBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-drawer">
-      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-
-    <!-- Menu horizontal (desktop) -->
     <nav class="nav-links" role="navigation" aria-label="Navegação principal">
       <a href="#servicos">Serviços</a>
       <a href="#processo">Como funciona</a>
       <a href="#sobre">Sobre</a>
       <a href="#contato" class="btn">Pedir orçamento</a>
     </nav>
+    
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+        <svg class="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+        <svg class="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <button class="nav-toggle" id="drawerOpenBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
-  <!-- Drawer lateral (mobile) -->
   <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
   <aside class="drawer" id="mobile-drawer" aria-hidden="true" aria-label="Menu lateral">
     <div class="drawer-header">
       <div class="drawer-title">Menu</div>
       <button class="drawer-close" id="drawerCloseBtn" aria-label="Fechar menu">
         <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6 6l12 12M18 6l-12 12" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
     </div>
@@ -235,164 +353,162 @@ body.drawer-open{height:100dvh; overflow:hidden; touch-action:none;}
   </aside>
 </header>
 
-<main id="top" class="container" role="main">
-  <!-- HERO -->
-  <section class="hero section" id="inicio">
-    <div>
-      <h1>Projetos de Segurança Contra Incêndio em <span style="color:var(--blue)">Goiânia</span> e região</h1>
-      <p class="lead">PPCI/PSCIP, ART CREA-GO e regularização junto ao <b>CBMGO</b> para empresas, condomínios e indústrias. Atendimento técnico, rápido e sem burocracia – do diagnóstico até a vistoria final.</p>
-      <div class="badges" aria-label="Destaques">
-        <span class="badge">ART CREA-GO</span>
-        <span class="badge">Normas CBMGO</span>
-        <span class="badge">Prazo e custo sob medida</span>
-      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="#contato">Solicitar orçamento</a>
-        <a class="btn btn-outline" href="#servicos">Ver serviços</a>
+<main id="top" role="main">
+  <section class="hero container" id="inicio">
+    <div class="reveal">
+      <h1>Projetos de Segurança Contra Incêndio em <span style="color:var(--blue)">Goiânia</span> e Região</h1>
+      <p class="lead">PPCI/PSCIP, ART CREA-GO e regularização completa junto ao <b>CBMGO</b> para empresas, condomínios e indústrias. Atendimento técnico, rápido e sem burocracia.</p>
+      <ul class="hero-features">
+        <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg> ART CREA-GO e Normas CBMGO</li>
+        <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg> Prazo e custo sob medida</li>
+        <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg> Acompanhamento até a vistoria final</li>
+      </ul>
+      <div style="display:flex; gap:12px; flex-wrap:wrap" class="hero-actions">
+        <a class="btn" href="#contato">Solicitar Orçamento Rápido</a>
+        <a class="btn btn-outline" href="#servicos">Ver Serviços</a>
       </div>
     </div>
-    <div class="card" aria-label="Resumo dos serviços">
-      <div class="content">
-        <div class="kpi">
-          <span class="num" aria-hidden="true">✔</span>
-          <div>Projetos elaborados com base em normas do CBMGO e CREA-GO</div>
-        </div>
-        <hr />
-        <ul>
-          <li>Projeto de Segurança Contra Incêndio (PPCI/PSCIP)</li>
-          <li>Memorial técnico, ART, plantas e detalhamentos</li>
-          <li>Hidrantes, detecção/alarme, extintores, sinalização e iluminação</li>
-          <li>Adequações para vistoria e regularização</li>
-        </ul>
-      </div>
+    <div class="hero-image-wrapper reveal">
+      <img src="image1.png"
+           alt="Ilustração de um projeto de engenharia contra incêndio"
+           loading="eager"
+           decoding="async"
+           style="max-width:100%; border-radius: var(--radius-sm);">
     </div>
   </section>
 
-  <!-- SERVIÇOS -->
   <section id="servicos" class="section">
-    <h2>Serviços</h2>
-    <p class="lead">Soluções completas para prevenção e combate a incêndio conforme normas vigentes.</p>
-    <div class="grid-3">
-      <div class="card"><div class="content">
-        <h3 style="font-size:var(--fs-h3);margin:0 0 6px">PPCI / PSCIP</h3>
-        <p>Projeto executivo com plantas, cálculos, memorial e ART CREA-GO, atendendo às exigências do CBMGO.</p>
-      </div></div>
-      <div class="card"><div class="content">
-        <h3 style="font-size:var(--fs-h3);margin:0 0 6px">Regularização</h3>
-        <p>Diagnóstico de conformidade, orientações de adequação, acompanhamento de obras e preparação para vistoria.</p>
-      </div></div>
-      <div class="card"><div class="content">
-        <h3 style="font-size:var(--fs-h3);margin:0 0 6px">Sistemas</h3>
-        <p>Dimensionamento de hidrantes e mangotinhos, extintores, detecção/alarme, sinalização e iluminação de emergência.</p>
-      </div></div>
+    <div class="container">
+      <h2 class="reveal">Soluções Completas e Normatizadas</h2>
+      <p class="lead reveal">Oferecemos um serviço completo para a regularização de edificações, do projeto inicial à aprovação final pelo Corpo de Bombeiros.</p>
+      <div class="grid-3">
+        <div class="card reveal"><div class="content">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+          <h3>PPCI / PSCIP</h3>
+          <p>Projeto executivo com plantas, cálculos, memorial e ART CREA-GO, atendendo a todas as exigências do CBMGO.</p>
+        </div></div>
+        <div class="card reveal"><div class="content">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+          <h3>Regularização</h3>
+          <p>Diagnóstico de conformidade, orientações de adequação, acompanhamento de obras e preparação para a vistoria.</p>
+        </div></div>
+        <div class="card reveal"><div class="content">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg></div>
+          <h3>Sistemas de Segurança</h3>
+          <p>Dimensionamento de hidrantes, extintores, detecção/alarme, sinalização e iluminação de emergência.</p>
+        </div></div>
+      </div>
     </div>
   </section>
 
-  <!-- PROCESSO -->
   <section id="processo" class="section">
-    <h2>Como funciona</h2>
-    <div class="grid-2">
-      <div class="card"><div class="content">
-        <ol>
-          <li><b>Diagnóstico</b> – análise da edificação, uso e legislação aplicável.</li>
-          <li><b>Projeto</b> – plantas, cálculos e memorial técnico com ART.</li>
-          <li><b>Adequações</b> – orientações de instalação e lista de materiais.</li>
-          <li><b>Vistoria</b> – apoio até a emissão do certificado pelo CBMGO.</li>
-        </ol>
-      </div></div>
-      <div class="card"><div class="content">
-        <p><b>Atendemos:</b> Goiânia, Aparecida de Goiânia, Senador Canedo, Trindade e região metropolitana. Projetos para comércios, galpões, indústrias, clínicas, escolas, condomínios e eventos.</p>
-        <p class="small">* Terminologia pode variar por estado (PPCI/PSCIP). Todo o trabalho segue as normas do CBMGO e legislação municipal aplicável.</p>
-      </div></div>
+    <div class="container">
+      <h2 class="reveal">Nosso Processo de Trabalho</h2>
+      <p class="lead reveal">Garantimos um fluxo de trabalho claro e eficiente para acelerar a regularização do seu imóvel.</p>
+      <div class="grid-2">
+        <div class="reveal">
+          <ol class="process-list">
+            <li><b>Diagnóstico:</b> Análise da edificação, uso e legislação aplicável.</li>
+            <li><b>Projeto:</b> Elaboração de plantas, cálculos e memorial técnico com ART.</li>
+            <li><b>Adequações:</b> Orientações de instalação e lista de materiais.</li>
+            <li><b>Vistoria:</b> Apoio total até a emissão do certificado pelo CBMGO.</li>
+          </ol>
+        </div>
+        <div class="card reveal"><div class="content">
+          <h3 style="margin-top:0;">Área de Atuação</h3>
+          <p><b>Atendemos:</b> Goiânia, Aparecida de Goiânia, Senador Canedo, Trindade e toda a região metropolitana.</p>
+          <hr/>
+          <p>Projetos para comércios, galpões, indústrias, clínicas, escolas, condomínios e eventos.</p>
+        </div></div>
+      </div>
     </div>
   </section>
 
-  <!-- SOBRE -->
   <section id="sobre" class="section">
-    <h2>Sobre o engenheiro</h2>
-    <div class="grid-2">
-      <div>
-        <p>Olá, sou <b>Cássio Muller</b>, engenheiro mecânico. Atuo com projetos de segurança contra incêndio, integrando prática de chão de fábrica com rigor normativo para soluções eficientes e econômicas. Meu compromisso é entregar <b>clareza técnica</b> e <b>agilidade</b> do primeiro contato à aprovação final.</p>
+    <div class="container">
+      <h2 class="reveal">Engenharia com Foco em Resultados</h2>
+      <div class="grid-2">
+        <div class="reveal">
+          <p>Olá, sou <b>Cássio Muller</b>, engenheiro mecânico. Atuo com projetos de segurança contra incêndio, integrando prática de campo com rigor normativo para entregar soluções eficientes e econômicas. Meu compromisso é oferecer <b>clareza técnica</b> e <b>agilidade</b> do primeiro contato à aprovação final.</p>
+        </div>
+        <div class="card reveal"><div class="content">
+          <h3 style="margin-top:0;">Diferenciais</h3>
+          <ul style="padding-left:0; list-style:none; display:grid; gap:12px;">
+            <li style="display:flex; gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue);flex-shrink:0"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>Projeto enxuto e objetivo, pronto para executar.</li>
+            <li style="display:flex; gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue);flex-shrink:0"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>Checklist de adequações e apoio à compra de materiais.</li>
+            <li style="display:flex; gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue);flex-shrink:0"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>Resposta rápida e comunicação direta.</li>
+          </ul>
+        </div></div>
       </div>
-      <div class="card"><div class="content">
-        <p><b>Diferenciais</b></p>
-        <ul>
-          <li>Projeto enxuto e objetivo, pronto para executar</li>
-          <li>Checklist de adequações e apoio à compra de materiais</li>
-          <li>Resposta rápida e comunicação direta</li>
-        </ul>
-      </div></div>
     </div>
   </section>
 
-  <!-- CONTATO -->
   <section id="contato" class="section">
-    <div class="card">
-      <div class="content">
-        <h2>Peça seu orçamento</h2>
-        <p class="lead">Preencha os dados e enviaremos a proposta no mesmo dia útil.</p>
-
-        <form id="leadForm">
-          <div class="form-row">
-            <div>
-              <label for="nome">Nome</label>
-              <input id="nome" class="input" required placeholder="Seu nome" autocomplete="name" />
-            </div>
-            <div>
-              <label for="whatsapp">WhatsApp</label>
-              <input id="whatsapp" class="input" required placeholder="(62) 9 9999-9999" inputmode="tel" autocomplete="tel" />
-            </div>
+    <div class="container reveal">
+      <div class="card" style="max-width:800px; margin: 0 auto">
+        <div class="content">
+          <div style="text-align:center">
+            <h2>Peça seu Orçamento</h2>
+            <p class="lead" style="margin-bottom:24px">Preencha os dados abaixo. Enviaremos uma proposta detalhada no mesmo dia útil.</p>
           </div>
-
-          <div class="form-row">
-            <div>
-              <label for="cidade">Cidade</label>
-              <input id="cidade" class="input" placeholder="Goiânia" autocomplete="address-level2" />
+          <form id="leadForm">
+            <div class="form-row">
+              <div>
+                <label for="nome">Nome</label>
+                <input id="nome" class="input" required placeholder="Seu nome" autocomplete="name" />
+              </div>
+              <div>
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" class="input" required placeholder="(62) 9 9999-9999" inputmode="tel" autocomplete="tel" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="cidade">Cidade</label>
+                <input id="cidade" class="input" placeholder="Goiânia" autocomplete="address-level2" />
+              </div>
+              <div>
+                <label for="tipo">Tipo de imóvel</label>
+                <select id="tipo" class="input" aria-label="Tipo de imóvel">
+                  <option>Comercial</option>
+                  <option>Industrial</option>
+                  <option>Serviços / Clínica</option>
+                  <option>Condomínio</option>
+                  <option>Outro</option>
+                </select>
+              </div>
             </div>
             <div>
-              <label for="tipo">Tipo de imóvel</label>
-              <select id="tipo" class="input" aria-label="Tipo de imóvel">
-                <option>Comercial</option>
-                <option>Industrial</option>
-                <option>Serviços / Clínica</option>
-                <option>Condomínio</option>
-                <option>Outro</option>
-              </select>
+              <label for="detalhes">Descrição resumida</label>
+              <textarea id="detalhes" class="input" rows="4" placeholder="Área aproximada, número de pavimentos, atividades..."></textarea>
             </div>
-          </div>
-
-          <label for="detalhes">Descrição resumida</label>
-          <textarea id="detalhes" class="input" rows="4" placeholder="Área aproximada, número de pavimentos, atividades..."></textarea>
-
-          <div class="form-actions">
-            <button type="submit" class="btn">Enviar pelo WhatsApp</button>
-            <a class="btn btn-outline" href="mailto:contato@projixis.eng.br?subject=Orçamento%20PPCI">Enviar por e-mail</a>
-          </div>
-
-          <p class="small">Ao clicar, você será redirecionado ao WhatsApp com a mensagem preenchida. Nenhum dado é armazenado neste site.</p>
-        </form>
+            <div class="form-actions">
+              <button type="submit" class="btn">Enviar pelo WhatsApp</button>
+              <a class="btn btn-outline" href="mailto:contato@projixis.eng.br?subject=Orçamento%20PPCI">Ou enviar por e-mail</a>
+            </div>
+            <p class="small" style="margin-top:16px; text-align:center;">Ao clicar, você será redirecionado com a mensagem preenchida. Nenhum dado é armazenado neste site.</p>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta card">
-    <div class="content">
+  <section class="container" style="padding: 32px 20px 64px;">
+    <div class="cta reveal">
       <h2>Precisa regularizar sua empresa?</h2>
-      <p>Vamos colocar sua edificação em conformidade com o Corpo de Bombeiros com rapidez e transparência.</p>
-      <a class="btn" href="#contato" aria-label="Falar agora">Falar agora</a>
+      <p>Vamos colocar sua edificação em conformidade com o Corpo de Bombeiros com rapidez, transparência e o melhor custo-benefício.</p>
+      <a class="btn" href="#contato" aria-label="Falar agora" style="background-color: #fff; color: var(--blue) !important; border-color: #fff;">Fale com um Engenheiro</a>
     </div>
   </section>
 </main>
 
-<!-- FAB WhatsApp (link direto) -->
 <a
   class="wapp"
-  id="wappFloat"
   href="https://wa.me/5562982282999?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20de%20PPCI/PSCIP."
   target="_blank" rel="noopener"
   aria-label="Falar no WhatsApp"
 >
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16.75 13.96c.25.13.43.2.5.25.13.06.16.21.05.39-.11.18-.5.56-1.12 1.12-.5.44-1.02.66-1.57.66-.56 0-1.14-.23-1.63-.44-.4-.18-.93-.45-1.46-.8-1.08-.72-1.9-1.6-2.58-2.6-s-1.02-2.1-1.02-2.82c0-.5.22-.92.6-1.23.33-.27.7-.38 1.05-.38.35 0 .64.12.88.31s.41.44.51.62c.1.18.12.3.06.45-.06.15-.12.28-.24.42s-.22.28-.3.36c-.08.08-.14.16-.14.24 0 .08.06.18.17.3.29.38.63.78 1.03 1.1.5.4 1 .73 1.5.96.18.09.3.13.39.13.25 0 .44-.1.59-.28.15-.18.28-.42.45-.7.17-.28.38-.47.62-.56.24-.09.47-.06.66.06zm4.32-9.43A10.03 10.03 0 0 0 5.61 5.61 10.03 10.03 0 0 0 21.07 21.07 10.03 10.03 0 0 0 21.07 4.53zM12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10z"/></svg>
   WhatsApp
 </a>
 
@@ -401,57 +517,85 @@ body.drawer-open{height:100dvh; overflow:hidden; touch-action:none;}
 </footer>
 
 <script>
-/* ===== util ===== */
-const YEAR=new Date().getFullYear(); document.getElementById('year').textContent=YEAR;
-const WHATSAPP_NUMBER='5562982282999';
-const encodeQuery = (q)=> encodeURIComponent(q);
+document.addEventListener('DOMContentLoaded', () => {
 
-/* ===== Drawer ===== */
-const drawer = document.getElementById('mobile-drawer');
-const overlay = document.getElementById('drawerOverlay');
-const openBtn = document.getElementById('drawerOpenBtn');
-const closeBtn = document.getElementById('drawerCloseBtn');
+  /* ===== DARK MODE ===== */
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlEl = document.documentElement;
+  const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  htmlEl.setAttribute('data-theme', currentTheme);
 
-function openDrawer(){
-  drawer.classList.add('open');
-  overlay.classList.add('show');
-  drawer.setAttribute('aria-hidden','false');
-  openBtn.setAttribute('aria-expanded','true');
-  document.body.classList.add('drawer-open');
-}
-function closeDrawer(){
-  drawer.classList.remove('open');
-  overlay.classList.remove('show');
-  drawer.setAttribute('aria-hidden','true');
-  openBtn.setAttribute('aria-expanded','false');
-  document.body.classList.remove('drawer-open');
-}
-openBtn.addEventListener('click', ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
-closeBtn.addEventListener('click', closeDrawer);
-overlay.addEventListener('click', closeDrawer);
-window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
-drawer.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeDrawer));
+  themeToggle?.addEventListener('click', () => {
+    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
 
-/* ===== FORM ===== */
-document.getElementById('leadForm')?.addEventListener('submit',e=>{
-  e.preventDefault();
-  const nome=document.getElementById('nome').value.trim();
-  const zap=document.getElementById('whatsapp').value.trim();
-  const cidade=document.getElementById('cidade').value.trim();
-  const tipo=document.getElementById('tipo').value;
-  const det=document.getElementById('detalhes').value.trim();
-  const msg=`Olá, sou ${nome}. Quero orçamento de PPCI/PSCIP em ${cidade || 'sua cidade'}. Tipo: ${tipo}. Contato: ${zap}. Detalhes: ${det || '—'}`;
-  window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeQuery(msg)}`;
-});
+  /* ===== SCROLL ANIMATIONS ===== */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
 
-/* ===== Máscara simples para WhatsApp ===== */
-const zapInput = document.getElementById('whatsapp');
-zapInput?.addEventListener('input', (e)=>{
-  const n = e.target.value.replace(/\D/g,'').slice(0,11);
-  let f = n;
-  if(n.length>2) f=`(${n.slice(0,2)}) ${n.slice(2)}`;
-  if(n.length>7) f=`(${n.slice(0,2)}) ${n.slice(2,3)} ${n.slice(3,7)}-${n.slice(7)}`;
-  e.target.value = f;
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  
+  /* ===== UTIL ===== */
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const WHATSAPP_NUMBER = '5562982282999';
+  const encodeQuery = (q) => encodeURIComponent(q);
+
+  /* ===== DRAWER ===== */
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const openBtn = document.getElementById('drawerOpenBtn');
+  const closeBtn = document.getElementById('drawerCloseBtn');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    overlay.classList.add('show');
+    drawer.setAttribute('aria-hidden', 'false');
+    openBtn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('drawer-open');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    overlay.classList.remove('show');
+    drawer.setAttribute('aria-hidden', 'true');
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('drawer-open');
+  }
+  openBtn?.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  closeBtn?.addEventListener('click', closeDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+  drawer?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+  /* ===== FORM ===== */
+  document.getElementById('leadForm')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value.trim();
+    const zap = document.getElementById('whatsapp').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const tipo = document.getElementById('tipo').value;
+    const det = document.getElementById('detalhes').value.trim();
+    const msg = `Olá, sou ${nome}. Quero orçamento de PPCI/PSCIP em ${cidade || 'sua cidade'}. Tipo: ${tipo}. Contato: ${zap}. Detalhes: ${det || '—'}`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeQuery(msg)}`, '_blank');
+  });
+
+  /* ===== MÁSCARA WHATSAPP ===== */
+  const zapInput = document.getElementById('whatsapp');
+  zapInput?.addEventListener('input', (e) => {
+    const n = e.target.value.replace(/\D/g, '').slice(0, 11);
+    let f = n;
+    if (n.length > 2) f = `(${n.slice(0,2)}) ${n.slice(2)}`;
+    if (n.length > 7) f = `(${n.slice(0,2)}) ${n.slice(2,3)} ${n.slice(3,7)}-${n.slice(7)}`;
+    e.target.value = f;
+  });
+
 });
 </script>
 </body>
